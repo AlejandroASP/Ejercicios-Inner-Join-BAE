@@ -45,7 +45,17 @@ where Interprete like '%Jackson%'
 group by Titulo,Interprete
 --3.- Clientes (dando su nombre) nacidos antes de 1975 que hayan
 -- puntuado a los tipos que contengan 'rock'.
-
+select Nombre
+from Cliente
+	inner join Puntuacion
+	on Cliente.id=Puntuacion.Idcliente
+	inner join Disco
+	on Disco.IdDisco=Puntuacion.iddisco
+	inner join DiscoTipo
+	on disco.IdDisco=DiscoTipo.IdDisco
+	inner join Tipo
+	on DiscoTipo.IdTipo=tipo.IdTipo
+	where tipo like'%rock%'and FechaNacimiento<'1975'
 
 --4.- Disco (dando su título) con mayor media de puntuacion que haya
 --sido votado dos o más veces.
