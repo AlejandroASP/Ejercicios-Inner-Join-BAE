@@ -33,6 +33,7 @@ from Disco
 	on disco.IdDisco=DiscoTipo.IdDisco
 group by Titulo
 	order by numtipo desc
+
 --2.- Media de la puntuación de discos de los interpretes que
 -- contengan 'Jackson'.
 select Titulo,Interprete,AVG(Puntuacion)
@@ -43,6 +44,7 @@ from Disco
 	on Disco.IdInterprete=Interprete.IdInterprete
 where Interprete like '%Jackson%'
 group by Titulo,Interprete
+
 --3.- Clientes (dando su nombre) nacidos antes de 1975 que hayan
 -- puntuado a los tipos que contengan 'rock'.
 select Nombre
@@ -56,10 +58,14 @@ from Cliente
 	inner join Tipo
 	on DiscoTipo.IdTipo=tipo.IdTipo
 	where tipo like'%rock%'and FechaNacimiento<'1975'
-
 --4.- Disco (dando su título) con mayor media de puntuacion que haya
 --sido votado dos o más veces.
-
+select Titulo,AVG(Puntuacion.Puntuacion)
+from Disco
+	inner join Puntuacion
+	on Puntuacion.iddisco=Disco.IdDisco
+	where Puntuacion>='2'
+group by Disco.Titulo
 
 
 --5.- Número de votos realizados por cada cliente (dando su nombre)
