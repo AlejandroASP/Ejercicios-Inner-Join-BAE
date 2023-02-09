@@ -60,14 +60,13 @@ from Cliente
 	where tipo like'%rock%'and FechaNacimiento<'1975'
 --4.- Disco (dando su título) con mayor media de puntuacion que haya
 --sido votado dos o más veces.
-select Titulo,AVG(Puntuacion.Puntuacion)
+select top 1 Titulo,AVG(Puntuacion),COUNT(*)
 from Disco
 	inner join Puntuacion
 	on Puntuacion.iddisco=Disco.IdDisco
-	where Puntuacion>='2'
-group by Disco.Titulo
-
-
+group by Titulo
+having COUNT(*)>='2'
+order by avg(Puntuacion) desc
 --5.- Número de votos realizados por cada cliente (dando su nombre)
 -- incluyéndolos todos los clientes. Ordenar por el nº de votos de
 -- mayor a menor.
