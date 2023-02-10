@@ -59,8 +59,14 @@ order by discos desc
 
 --7 títulos de los discos que hayan recibido
 --alguna puntuación y el nombre del intérprete.
-
-
+select Interprete,Titulo,count(Puntuacion) as puntuacion
+from Disco
+	inner join Puntuacion
+	on Disco.IdDisco = Puntuacion.iddisco
+	inner join Interprete
+	on Disco.IdInterprete = Interprete.IdInterprete
+group by Interprete,Titulo
+order by puntuacion desc
 
 --Segunda parte
 --1.- Cuál es el disco (dando el título) que tiene más tipos
