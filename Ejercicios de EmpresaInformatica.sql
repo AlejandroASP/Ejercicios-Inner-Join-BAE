@@ -9,12 +9,23 @@ from Componente
 	where Tipo like '%ALMACENAMIENTO%' and Tipo not like '%VARIOS%'
 group by Tipo
 --2.- Tienda con mayores ventas en importe
-select top 1 NombreTienda,count()
+select top 1 NombreTienda, COUNT(*) as NumMayorVentas
 from Tienda
-	inner join 
+	inner join Factura
+	on tienda.IdTienda = Factura.idTienda
+	inner join FacturaComponente
+	on Factura.NFactura = FacturaComponente.NFactura
+group by NombreTienda
+
 --3.- Tienda con mayor número de facturas realizadas (sacar todas las que coincidan)
-select top 1 NombreTienda, 
+select top 1 with ties NombreTienda,count(Cantidad)
 from Tienda
+	inner join Factura
+	on tienda.IdTienda = Factura.idTienda
+	inner join FacturaComponente
+	on Factura.NFactura = FacturaComponente.NFactura
+group by NombreTienda
+order by NombreTienda
 --4.- Artículos vendidos, dando su nombre, indicando el nº de veces que referencia esté a NULL
 
 --5.- Importe de las facturas de las tiendas de Localidad 'La Laguna'
